@@ -1,6 +1,6 @@
 import AxiosInstance from './axios';
 
-const RoomServices = {
+const UserServices = {
   async getUserInfo(id) {
     const result = await AxiosInstance.post('/AuthenticateGroup', {
       "roomId": 118427,
@@ -22,4 +22,4 @@ const RoomServices = {
   }
 }
 
-export default RoomServices;
+export default UserServices;
