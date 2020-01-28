@@ -1,8 +1,8 @@
-import RoomBusiness from '../business/UserBusiness';
+import RoomBusiness from '../business/RoomBusiness';
 
 const RoomController = {
-  async get({ id }) {
-    return RoomBusiness.get(id);
+  async get() {
+    return RoomBusiness.get();
   }
 }
 
