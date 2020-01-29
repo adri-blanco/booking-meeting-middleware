@@ -11,7 +11,12 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.response.use(
   (res) => Promise.resolve(res.data),
-  (err) => Promise.reject(err),
+  (err) => {
+    if(err.code === 'ENOTFOUND' && process.env.BACKEND_URL.includes(err.hostname)) {
+      return Promise.reject(new ApiError('Conection to backend failed', 400, { ERROR_CODE: 'BACKEND_CONNECTION' }));
+    }
+    return Promise.reject(err)
+  },
 );
 
 export default axiosInstance;
