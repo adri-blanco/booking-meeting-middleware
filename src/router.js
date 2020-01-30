@@ -3,6 +3,8 @@ import KoaValidator from 'koa2-joi-validate';
 import RoomController from './controller/RoomController';
 import UserController from './controller/UserController';
 import UserControllerValidators from './controller/UserControllerValidators';
+import BookController from './controller/BookController';
+import BookControllerValidators from './controller/BookControllerValidators';
 
 const router = new KoaRouter();
 const validator = KoaValidator({
@@ -21,6 +23,9 @@ router.get('/user/:id', validator.params(UserControllerValidators.get), async (c
 });
 router.get('/rooms', async (ctx) => {
   await controllerExecutor(ctx, RoomController.get);
-})
+});
+router.post('/book', validator.body(BookControllerValidators.create), async (ctx) => {
+  await controllerExecutor(ctx, BookController.create);
+});
 
 export default router;
