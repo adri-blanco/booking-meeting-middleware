@@ -22,7 +22,7 @@ const BookBusiness = {
       checkedIn,
     };
   },
-  async extend(data) {
+  async update(data) {
     if(data.startTime > data.endTime) {
       throw new ApiError('Start time should be before end time', 400);
     }

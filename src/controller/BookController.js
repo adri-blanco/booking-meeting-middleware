@@ -4,8 +4,8 @@ const BookController = {
   async create(data) {
     return BookBusiness.create(data);
   },
-  async extend(data) {
-    return BookBusiness.extend(data);
+  async update(data) {
+    return BookBusiness.update(data);
   }
 }
 

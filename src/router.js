@@ -27,8 +27,8 @@ router.get('/rooms', async (ctx) => {
 router.post('/book', validator.body(BookControllerValidators.create), async (ctx) => {
   await controllerExecutor(ctx, BookController.create);
 });
-router.post('/book/extend', validator.body(BookControllerValidators.extend), async (ctx) => {
-  await controllerExecutor(ctx, BookController.extend);
+router.put('/book', validator.body(BookControllerValidators.update), async (ctx) => {
+  await controllerExecutor(ctx, BookController.update);
 });
 
 export default router;
