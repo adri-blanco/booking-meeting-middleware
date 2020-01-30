@@ -21,7 +21,6 @@ const BookServices = {
       attendance: 1,
     });
 
-    console.log(response);
     if(response.Data[0].MessageCode === ERROR_CODES.ROOM_ID_NOT_VALID) {
       throw new ApiError('Room id does not exist', 400, { original: response.Data });
     }
