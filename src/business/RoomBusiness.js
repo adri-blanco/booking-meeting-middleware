@@ -1,11 +1,10 @@
 import RoomServices from "../services/RoomServices";
 import ROOMS from '../utils/rooms-constants';
-import { getTimeFromUTCStringFormatDate } from '../utils/date';
 import BookingStates from "../utils/booking-states-constants";
 
 function getBookingState({ startTime, endTime }) {
-  const startTimeDate = getTimeFromUTCStringFormatDate(startTime);
-  const endTimeDate = getTimeFromUTCStringFormatDate(endTime);
+  const startTimeDate = new Date(startTime);
+  const endTimeDate = new Date(endTime);
   const now = new Date();
 
   if(now < startTimeDate) {
@@ -20,6 +19,7 @@ function getBookingState({ startTime, endTime }) {
 
 function getRoomAvailability(bookings) {
   for(let i in bookings) {
+    console.log(bookings[i]);
     if(getBookingState(bookings[i]) === BookingStates.NOW) {
       return false;
     }
