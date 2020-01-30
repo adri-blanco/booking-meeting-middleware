@@ -13,8 +13,8 @@ const RoomServices = {
     const result = await AxiosInstance.post('/GetBookings', { ...params, roomId });
     return result.Data1.map((booking) => ({
       bookingId: booking.BookingID,
-      startTime: booking.UTCEventStartDateTime,
-      endTime: booking.UTCEventEndDateTime,
+      startTime: `${booking.UTCEventStartDateTime}Z`,
+      endTime: `${booking.UTCEventEndDateTime}Z`,
       name: booking.EventName,
       owner: booking.GroupName,
     }));
