@@ -21,7 +21,15 @@ const BookBusiness = {
       ...user,
       checkedIn,
     };
-  }
+  },
+  async extend(data) {
+    if(data.startTime > data.endTime) {
+      throw new ApiError('Start time should be before end time', 400);
+    }
+
+    await BookServices.update(data);
+    return data;
+  },
 }
 
 export default BookBusiness;

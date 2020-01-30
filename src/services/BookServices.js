@@ -1,10 +1,13 @@
-import AxiosInstance from './axios';
 import axiosInstance from './axios';
 import ApiError from '../utils/ApiError';
 
 const ERROR_CODES = {
   ROOM_ID_NOT_VALID: 80,
   ROOM_NOT_AVAILABLE: 40,
+}
+
+function getMessageCode(response) {
+  return response.Data[0].MessageCode;
 }
 
 const BookServices = {
@@ -21,18 +24,37 @@ const BookServices = {
       attendance: 1,
     });
 
-    if(response.Data[0].MessageCode === ERROR_CODES.ROOM_ID_NOT_VALID) {
+    if(getMessageCode(response) === ERROR_CODES.ROOM_ID_NOT_VALID) {
       throw new ApiError('Room id does not exist', 400, { original: response.Data });
     }
 
-    if(response.Data[0].MessageCode === ERROR_CODES.ROOM_NOT_AVAILABLE) {
+    if(getMessageCode(response) === ERROR_CODES.ROOM_NOT_AVAILABLE) {
       throw new ApiError('Bookin conflict. Room not available', 400, { original: response.Data });
     }
 
-    if(response.Data[0].MessageCode !== 0) {
+    if(getMessageCode(response) !== 0) {
       throw new ApiError('Unhandled Error in booking', 400, { original: response.Data });
     }
     return response.Data1[0].BookingID;
+  },
+  async update({ startTime, endTime, room, bookingId }) {
+    const response = await axiosInstance.post('/UpdateBooking', {
+      utcStart: startTime,
+      utcEnd: endTime,
+      roomId: room,
+      profileId: 158,
+      bookingId,
+      connectionName: '',
+    });
+
+    if(getMessageCode(response) === 40) {
+      throw new ApiError('Room not available', 400, { original: response.Data });
+    }
+
+    if(getMessageCode(response) !== 0) {
+      throw new ApiError('Unhandled error in booking', 400, { original: response.Data });
+    }
+    return true;
   },
   async checkIn(bookingId, roomId) {
     const response = await axiosInstance.post('/CheckInGroup', {
@@ -42,7 +64,7 @@ const BookServices = {
       connectionName: '',
     });
 
-    if(response.Data[0].MessageCode === 0) {
+    if(getMessageCode(response) === 0) {
       return true;
     } else {
       return false

@@ -8,4 +8,10 @@ export default {
     startTime: Joi.date().iso().required(),
     endTime: Joi.date().iso().required(),
   },
+  extend: {
+    bookingId: Joi.number().required(),
+    room: Joi.number().required(),
+    startTime: Joi.date().iso().required(),
+    endTime: Joi.date().iso().required(),    
+  }
 }
