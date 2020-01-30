@@ -19,7 +19,6 @@ function getBookingState({ startTime, endTime }) {
 
 function getRoomAvailability(bookings) {
   for(let i in bookings) {
-    console.log(bookings[i]);
     if(getBookingState(bookings[i]) === BookingStates.NOW) {
       return false;
     }
