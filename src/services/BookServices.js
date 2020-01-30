@@ -33,7 +33,22 @@ const BookServices = {
     if(response.Data[0].MessageCode !== 0) {
       throw new ApiError('Unhandled Error in booking', 400, { original: response.Data });
     }
-  }
+    return response.Data1[0].BookingID;
+  },
+  async checkIn(bookingId, roomId) {
+    const response = await axiosInstance.post('/CheckInGroup', {
+      roomId,
+      bookingId,
+      profileId: 158,
+      connectionName: '',
+    });
+
+    if(response.Data[0].MessageCode === 0) {
+      return true;
+    } else {
+      return false
+    }
+  },
 }
 
 export default BookServices;

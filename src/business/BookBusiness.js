@@ -13,10 +13,13 @@ const BookBusiness = {
       throw new ApiError('User not valid', 400);
     }
 
-    const booking = await BookServices.create({ ...data, groupId: user.groupId, userName: user.name });
+    const bookingId = await BookServices.create({ ...data, groupId: user.groupId, userName: user.name });
+    const checkedIn = await BookServices.checkIn(bookingId, data.room);
     return {
+      bookingId,
       ...data,
       ...user,
+      checkedIn,
     };
   }
 }
