@@ -1,6 +1,8 @@
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import cors from '@koa/cors';
+import serve from 'koa-static';
+import mount from 'koa-mount';
 import router from './router';
 
 const app = new Koa();
@@ -21,6 +23,9 @@ function handleError(err, context) {
   }
 }
 
+const static_pages = new Koa();
+static_pages.use(serve(__dirname + "/frontend/build")); //serve the build directory
+app.use(mount("/", static_pages));
 app.use(cors());
 app.use(bodyParser());
 app.use((context, next) => next().catch((err) => handleError(err, context)));
