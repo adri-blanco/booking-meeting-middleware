@@ -5,11 +5,11 @@ let window = null;
 function createWindow() {
   const startUrl = 'http://localhost:3000';
   window = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1024,
+    height: 850,
+    title: 'Booking Meeting App',
   });
   window.loadURL(startUrl);
-  window.webContents.openDevTools()
 
   window.on('closed', function () {
     window = null;
