@@ -41,12 +41,20 @@ const BookServices = {
   },
   async update({ startTime, endTime, room, bookingId }) {
     const response = await axiosInstance.post('/UpdateBooking', {
+      utcReservedStart: startTime,
+      utcReservedEnd: endTime,
+      utcEventStart: startTime,
+      utcEventEnd: endTime,
+      eventStart: startTime,
+      eventEnd: endTime,
       utcStart: startTime,
       utcEnd: endTime,
       roomId: room,
       profileId: 158,
       bookingId,
+      reservationId: bookingId,
       connectionName: '',
+      exchangeEnabled: 0,
     });
 
     if(getMessageCode(response) === 40) {
