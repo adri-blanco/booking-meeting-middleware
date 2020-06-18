@@ -7,14 +7,15 @@ const ERROR_CODES = {
 }
 
 function getMessageCode(response) {
-  return response.Data[0].MessageCode;
+  return response.messageCode;
 }
 
 const BookServices = {
   async create({ startTime, endTime, room, name, groupId, userName }) {
     const response = await axiosInstance.post('/AddBooking', {
-      utcStart: startTime,
-      utcEnd: endTime,
+      isoStartOfWeek: 0,
+      eventStart: startTime,
+      eventEnd: endTime,
       roomId: room,
       profileId: 158, // TODO: ??? Magic number
       groupId,
@@ -22,6 +23,7 @@ const BookServices = {
       groupName: userName,
       eventName: name,
       attendance: 1,
+      exchangeEnabled: 0,
     });
 
     if(getMessageCode(response) === ERROR_CODES.ROOM_ID_NOT_VALID) {
@@ -35,7 +37,7 @@ const BookServices = {
     if(getMessageCode(response) !== 0) {
       throw new ApiError('Unhandled Error in booking', 400, { original: response.Data });
     }
-    return response.Data1[0].BookingID;
+    return response.addBookingResults.BookingID;
   },
   async update({ startTime, endTime, room, bookingId }) {
     const response = await axiosInstance.post('/UpdateBooking', {

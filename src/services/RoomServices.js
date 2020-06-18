@@ -11,7 +11,8 @@ const RoomServices = {
       pollingInterval: 122000,
     }
     const result = await AxiosInstance.post('/GetBookings', { ...params, roomId });
-    return result.Data1.map((booking) => ({
+
+    return result.bookings.map((booking) => ({
       bookingId: booking.BookingID,
       startTime: `${booking.UTCEventStartDateTime}Z`,
       endTime: `${booking.UTCEventEndDateTime}Z`,

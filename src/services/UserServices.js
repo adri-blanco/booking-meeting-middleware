@@ -11,11 +11,11 @@ const UserServices = {
       "connectionName": ""
     });
 
-    if(result.Data1) {
+    if(result.message === 'Success') {
       return {
         id,
-        name: result.Data1[0].GroupName,
-        groupId: result.Data1[0].GroupID,
+        name: result.group.groupName,
+        groupId: result.group.groupID,
       }
     }
     return null;

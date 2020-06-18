@@ -24,7 +24,7 @@ function handleError(err, context) {
 }
 
 const static_pages = new Koa();
-static_pages.use(serve(__dirname + "/frontend/build")); //serve the build directory
+static_pages.use(serve(__dirname + "/../frontend/build"));
 app.use(mount("/", static_pages));
 app.use(cors());
 app.use(bodyParser());
