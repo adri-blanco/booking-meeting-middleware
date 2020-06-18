@@ -33,10 +33,10 @@ export const getRoomAvailabilityInfo = (room, when = Date.now()) => {
   };
 };
 
-export const getMyBookings = (roomList, groupId) => {
+export const getMyBookings = (roomList, name) => {
   const roomsBooked = roomList.reduce((rooms, actualRoom) => {
     const bookings = actualRoom.meetings.filter(
-      booking => booking.owner === groupId.name
+      booking => booking.owner === name
     );
     if (bookings.length > 0) {
       rooms.push({ ...actualRoom, meetings: bookings });

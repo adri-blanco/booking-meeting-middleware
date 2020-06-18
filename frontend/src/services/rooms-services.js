@@ -6,8 +6,8 @@ export default {
     return axios.get('/rooms');
   },
   async getAuthGroup({ authId }) {
-    const { groupId } = await axios.get(`/user/${authId}`);
-    return groupId;
+    const { name } = await axios.get(`/user/${authId}`);
+    return name;
   },
   async bookRoom({ authId, startHour, endHour, room, name }) {
     return axios.post('/book', {
@@ -39,11 +39,11 @@ export default {
   },
 
   async getMyBookings({ authId, time }) {
-    const groupId = await this.getAuthGroup({
+    const name = await this.getAuthGroup({
       authId,
     });
     const rooms = await this.getRooms();
 
-    return getMyBookings(rooms, groupId, time);
+    return getMyBookings(rooms, name, time);
   },
 };
