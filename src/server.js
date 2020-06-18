@@ -8,11 +8,11 @@ import router from './router';
 const app = new Koa();
 
 function handleError(err, context) {
-  if(err.message.isJoi) {
+  if(err.isJoi) {
     context.status = 400;
     context.body = {
-      message: err.message.details[0].message,
-      extra: err.message.details,
+      message: err.error.message,
+      extra: err.error.details,
     }
   } else {
     context.status = err.status || 500;

@@ -1,17 +1,17 @@
-import Joi from 'joi';
+import Joi from '@hapi/joi';
 
 export default {
-  create: {
+  create: Joi.object({
     user: Joi.string().required(),
     name: Joi.string(),
     room: Joi.number().required(),
     startTime: Joi.date().iso().required(),
     endTime: Joi.date().iso().required(),
-  },
-  update: {
+  }),
+  update: Joi.object({
     bookingId: Joi.number().required(),
     room: Joi.number().required(),
     startTime: Joi.date().iso().required(),
     endTime: Joi.date().iso().required(),    
-  }
+  })
 }

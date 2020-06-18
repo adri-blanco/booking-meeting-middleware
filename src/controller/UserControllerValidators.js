@@ -1,7 +1,7 @@
-import Joi from 'joi';
+import Joi from '@hapi/joi';
 
 export default {
-  get: {
+  get: Joi.object({
     id: Joi.string().required(),
-  },
+  }),
 }
