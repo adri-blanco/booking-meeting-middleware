@@ -59,6 +59,7 @@
     "productName": "Booking meeting app",
     "files": [
       "build/**/*",
+      "build/icon.*",
       "node_modules/**/*",
       "package.json",
       "frontend/**/*"

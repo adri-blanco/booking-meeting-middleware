@@ -60,7 +60,7 @@ const App = ({ classes }) => {
       ) {
         const ERROR =
           process.env.REACT_APP_GENERAL_ERROR_MESSAGE ||
-          'Error happened trying to connect with the backend.';
+          'Make sure you are in the office network or in the VPN.';
         dispatch.global.setGeneralError(ERROR);
       }
       await dispatch.snackbar.openSnackbar({
